@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".DeRemateAplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -26,6 +27,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.activities.DeliveryHistoryActivity" />
+        <activity
+            android:name=".ui.views.AvailableRoutes"
+            android:exported="true"
+            android:theme="@style/Theme.DeRemateAndroid"/>
 
     </application>
 
