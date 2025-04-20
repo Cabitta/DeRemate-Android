@@ -1,5 +1,7 @@
 package com.example.deremate_android.data.repository;
 
+import android.util.Log;
+
 import com.example.deremate_android.data.model.AvailableRoute;
 
 import java.util.ArrayList;
@@ -30,11 +32,6 @@ public class RouteRepositoryInMemory implements RouteRepository{
         availableRoutes.add(new AvailableRoute(1L, "direccion 9999", "cliente9", "paquete9"));
         availableRoutes.add(new AvailableRoute(1L, "direccion 1000", "cliente10", "paquete10"));
         availableRoutes.add(new AvailableRoute(1L, "direccion 1100", "cliente11", "paquete11"));
-    }
-
-    @Override
-    public List<AvailableRoute> getAllRoutes() {
-        return new ArrayList<>(availableRoutes);
     }
 
     @Override
