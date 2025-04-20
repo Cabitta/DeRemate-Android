@@ -6,4 +6,8 @@ import dagger.hilt.android.HiltAndroidApp;
 
 @HiltAndroidApp
 public class DeRemateAplication extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 }

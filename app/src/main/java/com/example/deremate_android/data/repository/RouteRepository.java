@@ -7,5 +7,5 @@ import java.util.List;
 public interface RouteRepository {
     List<AvailableRoute> getAllRoutes();
 
-    List<AvailableRoute> getAllAvailableByState(String state);
+    List<AvailableRoute> getAllAvailableRoutes();
 }
