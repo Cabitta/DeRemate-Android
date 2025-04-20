@@ -2,7 +2,9 @@ package com.example.deremate_android.ui.activities;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
@@ -39,23 +41,28 @@ public class AvailableRoutesActivity extends AppCompatActivity {
         Log.d(TAG, "⭐ onCreate");
         setContentView(R.layout.available_routes);
 
-        routesView = findViewById(R.id.listaRutas); // Inicializar rutas
-        if (routeRepository != null) {
-            List<AvailableRoute> availableRoutes = routeRepository.getAllAvailableRoutes();
-            routesDisplayList = availableRoutes
-                    .stream()
-                    .map(route -> route.getId() + " - " + route.getAddress())
-                    .collect(Collectors.toList());
+        if (savedInstanceState == null) {
+            ImageView backArrow = findViewById(R.id.backArrow);
+            backArrow.setOnClickListener(v -> finish());
 
-            adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1,
-                    routesDisplayList);
-            routesView.setAdapter(adapter);
-        } else {
-            Log.e("AvailableRoutesActivity", "RouteRepository is null");
+            Log.d("AvailableRoutesActivity", "Se crea la actividad por primera vez");
+            routesView = findViewById(R.id.listaRutas); // Inicializar rutas
+
+            if (routeRepository != null) {
+                List<AvailableRoute> availableRoutes = routeRepository.getAllAvailableRoutes();
+                routesDisplayList = availableRoutes
+                        .stream()
+                        .map(route -> route.getId() + " - " + route.getAddress())
+                        .collect(Collectors.toList());
+
+                adapter = new ArrayAdapter<>(this,
+                        android.R.layout.simple_list_item_1,
+                        routesDisplayList);
+                routesView.setAdapter(adapter);
+            } else {
+                Log.e("AvailableRoutesActivity", "RouteRepository is null");
+            }
         }
-
-
     }
 
     @Override
