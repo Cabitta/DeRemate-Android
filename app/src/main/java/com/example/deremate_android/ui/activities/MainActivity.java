@@ -31,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnDeliveryHistory;
 
+    Button btnAvailableRoutes;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
         btnDeliveryHistory.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, DeliveryHistoryActivity.class);
+            startActivity(intent);
+        });
+
+        btnAvailableRoutes = findViewById(R.id.btn_available_routes);
+
+        btnAvailableRoutes.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, AvailableRoutesActivity.class);
             startActivity(intent);
         });
     }
