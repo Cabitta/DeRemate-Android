@@ -1,5 +1,43 @@
-.gradle/
-.idea/
-app/build/
-build/
+# Archivos de configuración local
 local.properties
+
+# Archivos generados por Gradle
+.gradle/
+build/
+/*/build/
+gradle-app.setting
+.gradletasknamecache
+
+# Archivos de Android Studio / IntelliJ IDEA
+.idea/
+*.iml
+.externalNativeBuild
+.cxx/
+captures/
+.navigation/
+output.json
+
+# Archivos compilados
+*.apk
+*.aab
+*.aar
+*.dex
+*.class
+
+# Archivos de keystore y propiedades sensibles
+*.jks
+*.keystore
+/keystore.properties
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos de configuración de ProGuard
+proguard/
+
+# Google Services
+google-services.json
+
+# Archivos de log
+*.log

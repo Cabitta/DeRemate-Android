@@ -1,5 +1,7 @@
 package com.example.deremate_android.data.api;
 
+import com.example.deremate_android.data.service.RegisterService;
+
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -15,5 +17,9 @@ public class ApiClient {
                     .build();
         }
         return retrofit;
+    }
+
+    public static RegisterService getRegisterService() {
+        return getClient().create(RegisterService.class);
     }
 }
