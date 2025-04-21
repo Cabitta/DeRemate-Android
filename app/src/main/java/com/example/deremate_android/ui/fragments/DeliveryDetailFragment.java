@@ -7,16 +7,25 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+
 import com.example.deremate_android.R;
-import com.example.deremate_android.data.api.ApiClient;
 import com.example.deremate_android.data.model.DeliveryDetailItem;
 import com.example.deremate_android.data.service.DeliveryDetailService;
-import androidx.fragment.app.Fragment;
-import retrofit2.Callback;
+
+import javax.inject.Inject;
+
+import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
+@AndroidEntryPoint
 public class DeliveryDetailFragment extends Fragment {
+    @Inject
+    DeliveryDetailService deliveryDetailService;
+
     // Views
     private TextView clientNameText, addressText, statusText;
     private TextView qrCodeText, packageLocationText;
@@ -30,15 +39,14 @@ public class DeliveryDetailFragment extends Fragment {
     public static DeliveryDetailFragment newInstance() {
         return new DeliveryDetailFragment();
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_delivery_detail, container, false);
 
-        // Usar valores por defecto si no hay argumentos
-        deliveryId = "507f1f77bcf86cd799439011"; // ID hardcodeado del backend
-        agentId = "123"; // ID de agente hardcodeado
+        deliveryId = "507f1f77bcf86cd799439011";
+        agentId = "123";
 
-        // Obtener IDs del Bundle si existen
         Bundle args = getArguments();
         if (args != null) {
             deliveryId = args.getString("deliveryId", deliveryId);
@@ -68,11 +76,8 @@ public class DeliveryDetailFragment extends Fragment {
     }
 
     private void loadDeliveryDetail() {
-        // Crear instancia del servicio
-        DeliveryDetailService service = ApiClient.getClient().create(DeliveryDetailService.class);
-
-        // Llamar al endpoint
-        service.getDeliveryDetail(agentId, deliveryId).enqueue(new Callback<DeliveryDetailItem>() {
+        // Usar directamente el servicio inyectado
+        deliveryDetailService.getDeliveryDetail(agentId, deliveryId).enqueue(new Callback<DeliveryDetailItem>() {
             @Override
             public void onResponse(Call<DeliveryDetailItem> call, Response<DeliveryDetailItem> response) {
                 if (response.isSuccessful() && response.body() != null) {
@@ -82,7 +87,6 @@ public class DeliveryDetailFragment extends Fragment {
 
             @Override
             public void onFailure(Call<DeliveryDetailItem> call, Throwable t) {
-                // Manejar error
                 Toast.makeText(getContext(), "Error al cargar los detalles", Toast.LENGTH_SHORT).show();
             }
         });
