@@ -2,13 +2,6 @@ package com.example.deremate_android.data.model;
 
 import com.google.gson.annotations.SerializedName;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Delivery {
     @SerializedName("firstname")
     private String firstName;

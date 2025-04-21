@@ -1,8 +1,5 @@
 package com.example.deremate_android.data.model;
 
-import lombok.Data;
-
-@Data
 public class RegisterResponse {
     private String message;
     private String token;
