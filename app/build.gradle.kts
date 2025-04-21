@@ -43,9 +43,6 @@ dependencies {
     implementation(libs.navigation.fragment)
     implementation(libs.navigation.ui)
 
-    // Lombok
-    implementation("org.projectlombok:lombok:1.18.24")
-    annotationProcessor("org.projectlombok:lombok:1.18.24")
 
     // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48")

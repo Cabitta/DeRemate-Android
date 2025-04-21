@@ -2,10 +2,6 @@ package com.example.deremate_android.data.model;
 
 import java.util.Date;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 public class AvailableRoute {
 
     private Long id; // TODO: ver si eliminar
