@@ -26,12 +26,43 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- Actividad de inicio de sesión -->
+        <activity
+            android:name=".ui.activities.LoginActivity"
+            android:exported="false"
+            android:label="Iniciar sesión">
+        </activity>
+
+        <!-- Actividad de registro -->
+        <activity
+            android:name=".ui.activities.RegisterActivity"
+            android:exported="false"
+            android:label="Registro">
+        </activity>
+
+        <!-- Actividad para recuperar contraseña -->
+        <activity
+            android:name=".ui.activities.PasswordRecoveryActivity"
+            android:exported="false"
+            android:label="Recuperar contraseña">
+        </activity>
+
+        <!-- Actividad para enviar notificaciones -->
+        <activity
+            android:name=".ui.activities.SendNotificationActivity"
+            android:exported="false"
+            android:label="Enviar notificación">
+        </activity>
+        <activity
+            android:name=".ui.activities.HomeActivity"
+            android:exported="false"
+            android:label="Entrada de usuario a la app">
+        </activity>
         <activity android:name=".ui.activities.DeliveryHistoryActivity" />
         <activity
             android:name=".ui.activities.AvailableRoutesActivity"
             android:exported="true"
             android:theme="@style/Theme.DeRemateAndroid"/>
-
     </application>
 
 </manifest>
