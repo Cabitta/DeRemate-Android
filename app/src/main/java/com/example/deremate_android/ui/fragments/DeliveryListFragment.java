@@ -59,7 +59,7 @@ public class DeliveryListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         String deliveryId = "3f606fe38e646890030881ef"; // TODO: CAMBIAR A DINAMICO
-        DeliveryHistoryService service = ApiClient.getClient().create(DeliveryHistoryService.class);
+        DeliveryHistoryService service = ApiClient.getClient(requireContext()).create(DeliveryHistoryService.class);
         Call<List<DeliveryHistory>> call = service.getDeliveryHistory(deliveryId);
 
         call.enqueue(new Callback<List<DeliveryHistory>>() {
