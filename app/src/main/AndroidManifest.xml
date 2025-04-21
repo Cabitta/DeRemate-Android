@@ -31,6 +31,9 @@
             android:name=".ui.activities.AvailableRoutesActivity"
             android:exported="true"
             android:theme="@style/Theme.DeRemateAndroid"/>
+        <activity
+            android:name=".ui.activities.RegisterActivity"
+            android:exported="false" />
 
     </application>
 
