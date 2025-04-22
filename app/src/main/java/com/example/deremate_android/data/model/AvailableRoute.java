@@ -4,8 +4,6 @@ import java.util.Date;
 
 public class AvailableRoute {
 
-    private Long id; // TODO: ver si eliminar
-
     private String address;
 
     // private String delivery; // TODO: String cambiar por CLASE
@@ -14,19 +12,10 @@ public class AvailableRoute {
 
     private String paquete; // TODO: String cambiar por CLASE
 
-    public AvailableRoute(Long id, String address, String client, String paquete) {
-        this.id = id;
+    public AvailableRoute(String address, String client, String paquete) {
         this.address = address;
         this.client = client;
         this.paquete = paquete;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getAddress() {
