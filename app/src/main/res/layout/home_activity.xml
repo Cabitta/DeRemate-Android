@@ -19,19 +19,36 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¡Bienvenido!"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#1A1A1A"
+        android:layout_gravity="top|center"
+        android:padding="26dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         android:layout_gravity="center">
+
+
+
         <Button
             android:id="@+id/btn_delivery_history"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Historial de Entregas"
             android:layout_gravity="center"
-            android:layout_margin="16dp"/>
+            android:layout_margin="16dp"
+            android:padding="18dp"
+            android:backgroundTint="#4f21ab"
+            android:text="Historial de Entregas"
+            android:textSize="18dp" />
 
         <Button
             android:id="@+id/btn_available_routes"
@@ -39,7 +56,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="16dp"
-            android:text="Rutas Disponibles" />
+            android:padding="18dp"
+            android:backgroundTint="#4f21ab"
+            android:text="Rutas Disponibles"
+            android:textSize="18dp" />
     </LinearLayout>
 
 
