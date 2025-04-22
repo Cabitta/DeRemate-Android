@@ -1,25 +1,23 @@
 package com.example.deremate_android.data.model;
 
-import java.util.Date;
-
 public class AvailableRoute {
 
     private String address;
-    private String clientFirstName;
-    private String clientLastName;
-    private String clientEmail;
-    private String packageSector;
-    private int packageEstante;
-    private int packageColumnaEstante;
+    private String client_name;
+    private String client_lastname;
+    private String client_email;
+    private String package_sector;
+    private int package_estante;
+    private int package_columna_estante;
 
-    public AvailableRoute(String address, String clientFirstName, String clientLastName, String clientEmail, String packageSector, int packageEstante, int packageColumnaEstante) {
+    public AvailableRoute(String address, String client_name, String clientLastName, String client_email, String package_sector, int package_estante, int package_columna_estante) {
         this.address = address;
-        this.clientFirstName = clientFirstName;
-        this.clientLastName = clientLastName;
-        this.clientEmail = clientEmail;
-        this.packageSector = packageSector;
-        this.packageEstante = packageEstante;
-        this.packageColumnaEstante = packageColumnaEstante;
+        this.client_name = client_name;
+        this.client_lastname = clientLastName;
+        this.client_email = client_email;
+        this.package_sector = package_sector;
+        this.package_estante = package_estante;
+        this.package_columna_estante = package_columna_estante;
     }
 
     public String getAddress() {
@@ -30,51 +28,51 @@ public class AvailableRoute {
         this.address = address;
     }
 
-    public String getClientFirstName() {
-        return clientFirstName;
+    public String getClient_name() {
+        return client_name;
     }
 
-    public void setClientFirstName(String clientFirstName) {
-        this.clientFirstName = clientFirstName;
+    public void setClient_name(String clientFirstName) {
+        this.client_name = clientFirstName;
     }
 
-    public String getClientLastName() {
-        return clientLastName;
+    public String getClient_lastname() {
+        return client_lastname;
     }
 
-    public void setClientLastName(String clientLastName) {
-        this.clientLastName = clientLastName;
+    public void setClient_lastname(String client_lastname) {
+        this.client_lastname = client_lastname;
     }
 
-    public String getClientEmail() {
-        return clientEmail;
+    public String getClient_email() {
+        return client_email;
     }
 
-    public void setClientEmail(String clientEmail) {
-        this.clientEmail = clientEmail;
+    public void setClient_email(String client_email) {
+        this.client_email = client_email;
     }
 
-    public String getPackageSector() {
-        return packageSector;
+    public String getPackage_sector() {
+        return package_sector;
     }
 
-    public void setPackageSector(String packageSector) {
-        this.packageSector = packageSector;
+    public void setPackage_sector(String package_sector) {
+        this.package_sector = package_sector;
     }
 
-    public int getPackageEstante() {
-        return packageEstante;
+    public int getPackage_estante() {
+        return package_estante;
     }
 
-    public void setPackageEstante(int packageEstante) {
-        this.packageEstante = packageEstante;
+    public void setPackage_estante(int package_estante) {
+        this.package_estante = package_estante;
     }
 
-    public int getPackageColumnaEstante() {
-        return packageColumnaEstante;
+    public int getPackage_columna_estante() {
+        return package_columna_estante;
     }
 
-    public void setPackageColumnaEstante(int packageColumnaEstante) {
-        this.packageColumnaEstante = packageColumnaEstante;
+    public void setPackage_columna_estante(int package_columna_estante) {
+        this.package_columna_estante = package_columna_estante;
     }
 }
