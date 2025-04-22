@@ -1,6 +1,9 @@
 package com.example.deremate_android.ui.fragments;
 
+import static android.content.ContentValues.TAG;
+
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,16 +38,25 @@ public class DeliveryDetailFragment extends Fragment {
     // Datos necesarios para la llamada API
     private String deliveryId;
     private String agentId;
+    private String routeId;
 
-    public static DeliveryDetailFragment newInstance() {
-        return new DeliveryDetailFragment();
+    public static DeliveryDetailFragment newInstance(String routeId, String deliveryId) {
+        DeliveryDetailFragment fragment = new DeliveryDetailFragment();
+        Bundle args = new Bundle();
+        args.putString("routeId", routeId);
+        args.putString("deliveryId", deliveryId);
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_delivery_detail, container, false);
+        if (getArguments() != null) {
+            routeId = getArguments().getString("routeId");
+            deliveryId = getArguments().getString("deliveryId");
+        }
 
-        deliveryId = "507f1f77bcf86cd799439011";
         agentId = "123";
 
         Bundle args = getArguments();

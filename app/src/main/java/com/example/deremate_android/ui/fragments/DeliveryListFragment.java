@@ -42,11 +42,18 @@ public class DeliveryListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_delivery_list, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
 
+        SharedPreferences prefs = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String deliveryId = prefs.getString("delivery_id", null);
+
+
         ImageView backArrow = view.findViewById(R.id.backArrow);
         backArrow.setOnClickListener(v -> requireActivity().onBackPressed());
 
         deliveryAdapter = new DeliveryAdapter(List.of(), delivery -> {
-            Fragment detailFragment = new DeliveryDetailFragment();
+            Fragment detailFragment = DeliveryDetailFragment.newInstance(
+                    deliveryId,
+                    delivery.getRouteId()
+            );
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
@@ -58,9 +65,6 @@ public class DeliveryListFragment extends Fragment {
 
         recyclerView.setAdapter(deliveryAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        SharedPreferences prefs = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
-        String deliveryId = prefs.getString("delivery_id", null);
 
         DeliveryHistoryService service = ApiClient.getClient().create(DeliveryHistoryService.class);
         Call<List<DeliveryHistory>> call = service.getDeliveryHistory(deliveryId);
