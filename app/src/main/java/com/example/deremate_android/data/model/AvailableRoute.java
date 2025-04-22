@@ -1,32 +1,23 @@
 package com.example.deremate_android.data.model;
 
-import java.util.Date;
-
 public class AvailableRoute {
 
-    private Long id; // TODO: ver si eliminar
-
     private String address;
+    private String client_name;
+    private String client_lastname;
+    private String client_email;
+    private String package_sector;
+    private int package_estante;
+    private int package_columna_estante;
 
-    // private String delivery; // TODO: String cambiar por CLASE
-
-    private String client; // TODO: String cambiar por CLASE
-
-    private String paquete; // TODO: String cambiar por CLASE
-
-    public AvailableRoute(Long id, String address, String client, String paquete) {
-        this.id = id;
+    public AvailableRoute(String address, String client_name, String clientLastName, String client_email, String package_sector, int package_estante, int package_columna_estante) {
         this.address = address;
-        this.client = client;
-        this.paquete = paquete;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.client_name = client_name;
+        this.client_lastname = clientLastName;
+        this.client_email = client_email;
+        this.package_sector = package_sector;
+        this.package_estante = package_estante;
+        this.package_columna_estante = package_columna_estante;
     }
 
     public String getAddress() {
@@ -37,19 +28,51 @@ public class AvailableRoute {
         this.address = address;
     }
 
-    public String getClient() {
-        return client;
+    public String getClient_name() {
+        return client_name;
     }
 
-    public void setClient(String client) {
-        this.client = client;
+    public void setClient_name(String clientFirstName) {
+        this.client_name = clientFirstName;
     }
 
-    public String getPaquete() {
-        return paquete;
+    public String getClient_lastname() {
+        return client_lastname;
     }
 
-    public void setPaquete(String paquete) {
-        this.paquete = paquete;
+    public void setClient_lastname(String client_lastname) {
+        this.client_lastname = client_lastname;
+    }
+
+    public String getClient_email() {
+        return client_email;
+    }
+
+    public void setClient_email(String client_email) {
+        this.client_email = client_email;
+    }
+
+    public String getPackage_sector() {
+        return package_sector;
+    }
+
+    public void setPackage_sector(String package_sector) {
+        this.package_sector = package_sector;
+    }
+
+    public int getPackage_estante() {
+        return package_estante;
+    }
+
+    public void setPackage_estante(int package_estante) {
+        this.package_estante = package_estante;
+    }
+
+    public int getPackage_columna_estante() {
+        return package_columna_estante;
+    }
+
+    public void setPackage_columna_estante(int package_columna_estante) {
+        this.package_columna_estante = package_columna_estante;
     }
 }
