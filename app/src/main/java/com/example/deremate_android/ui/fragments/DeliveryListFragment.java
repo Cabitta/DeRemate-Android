@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,6 +42,7 @@ public class DeliveryListFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_delivery_list, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
+        TextView emptyMessage = view.findViewById(R.id.emptyMessage);
 
         SharedPreferences prefs = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String deliveryId = prefs.getString("delivery_id", null);
@@ -73,7 +75,16 @@ public class DeliveryListFragment extends Fragment {
             public void onResponse(Call<List<DeliveryHistory>> call, Response<List<DeliveryHistory>> response) {
                 if (response.isSuccessful()) {
                     List<DeliveryHistory> deliveries = response.body();
-                    deliveryAdapter.setDeliveryList(deliveries);
+
+                    if (deliveries != null && !deliveries.isEmpty()) {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        emptyMessage.setVisibility(View.GONE);
+                        deliveryAdapter.setDeliveryList(deliveries);
+                    } else {
+                        recyclerView.setVisibility(View.GONE);
+                        emptyMessage.setVisibility(View.VISIBLE);
+                    }
+
                 } else {
                     Log.e("API", "Error en respuesta: " + response.code());
                 }
