@@ -35,34 +35,31 @@ public class AvailableRoutesCallback implements Callback<List<AvailableRoute>> {
         if (response.isSuccessful() && response.body() != null) {
 
             List<AvailableRoute> routes = response.body();
-            Log.d("AvailableRoutesCallback", "Recibe response");
-
-            // Depura la primera ruta para verificar datos
-            if (!routes.isEmpty()) {
-                AvailableRoute firstRoute = routes.get(0);
-                Log.d("AvailableRoutesCallback", "Primera ruta: " +
-                        firstRoute.getClient_name() + " " +
-                        firstRoute.getClient_email());
+            // Verificar si la lista de rutas está vacía
+            if (routes.isEmpty()) {
+                Log.d("AvailableRoutesCallback", "No tiene rutas disponibles");
             }
 
             adapter = new GenericRecyclerViewAdapter<>(
                     routes,
                     R.layout.fragment_card,
                     (itemView, availableRoute) -> {
-                        Log.d("AvailableRoutesCallback", "Binding item: " + availableRoute.getClient_email());
-
+                        TextView address = itemView.findViewById(R.id.address);
                         TextView name = itemView.findViewById(R.id.clientName);
                         TextView email = itemView.findViewById(R.id.clientEmail);
-                        TextView paquete = itemView.findViewById(R.id.packageInfo);
 
-                        if (name == null || email == null || paquete == null) {
+                        if (name == null || email == null || address == null) {
                             Log.e("AvailableRoutesCallback", "Uno o más TextViews no encontrados");
                             return;
                         }
+                        else {
+                            Log.d("AvailableRoutesCallback", "TextViews encontrados");
+                        }
 
+                        address.setText("Dirección: " + availableRoute.getAddress());
                         name.setText("Cliente: " + availableRoute.getClient_name() + " " + availableRoute.getClient_lastname());
+                        Log.d("AvailableRoutesCallback", availableRoute.getClient_email());
                         email.setText("Email: " + availableRoute.getClient_email());
-                        paquete.setText("Package: " + availableRoute.getPackage_sector() + " Estante: " + availableRoute.getPackage_estante() + " Columna: " + availableRoute.getPackage_columna_estante());
                     },
 
                     availableRoute -> {

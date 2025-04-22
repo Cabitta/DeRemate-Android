@@ -27,14 +27,24 @@
             android:layout_centerVertical="true"
             android:tint="#616161" />
 
-        <!-- Cliente -->
+        <!-- Address -->
         <TextView
-            android:id="@+id/clientName"
+            android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="#ffffff"
             android:textStyle="bold"
             android:textSize="18sp" />
+
+        <!-- Client -->
+        <TextView
+            android:id="@+id/clientName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/address"
+            android:layout_marginTop="8dp"
+            android:textColor="#ecf0f1"
+            android:textSize="14sp" />
 
         <!-- Email -->
         <TextView
@@ -42,16 +52,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/clientName"
-            android:layout_marginTop="8dp"
-            android:textColor="#ecf0f1"
-            android:textSize="14sp" />
-
-        <!-- Package -->
-        <TextView
-            android:id="@+id/packageInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/clientEmail"
             android:layout_marginTop="4dp"
             android:textColor="#bdc3c7"
             android:textSize="14sp" />
