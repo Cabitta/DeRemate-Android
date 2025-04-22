@@ -14,19 +14,15 @@ import com.example.deremate_android.R;
 import com.example.deremate_android.data.api.ApiClient;
 import com.example.deremate_android.data.callbak.AvailableRoutesCallback;
 import com.example.deremate_android.data.model.AvailableRoute;
-import com.example.deremate_android.data.model.DeliveryHistory;
 import com.example.deremate_android.data.repository.RouteRepository;
 import com.example.deremate_android.data.service.AvailableRoutesService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @AndroidEntryPoint
 public class AvailableRoutesActivity extends AppCompatActivity {
@@ -41,10 +37,6 @@ public class AvailableRoutesActivity extends AppCompatActivity {
     private ListView routesView;
 
     private Call<List<AvailableRoute>> call;
-
-    private List<String> routesDisplayList;
-
-    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
