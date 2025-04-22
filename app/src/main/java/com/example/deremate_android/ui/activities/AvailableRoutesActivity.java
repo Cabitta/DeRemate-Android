@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.deremate_android.R;
 import com.example.deremate_android.data.api.ApiClient;
+import com.example.deremate_android.data.callbak.AvailableRoutesCallback;
 import com.example.deremate_android.data.model.AvailableRoute;
 import com.example.deremate_android.data.model.DeliveryHistory;
 import com.example.deremate_android.data.repository.RouteRepository;
@@ -39,6 +40,8 @@ public class AvailableRoutesActivity extends AppCompatActivity {
 
     private ListView routesView;
 
+    private Call<List<AvailableRoute>> call;
+
     private List<String> routesDisplayList;
 
     private ArrayAdapter<String> adapter;
@@ -50,55 +53,15 @@ public class AvailableRoutesActivity extends AppCompatActivity {
         setContentView(R.layout.available_routes);
 
         if (savedInstanceState == null) {
+            Log.d("AvailableRoutesActivity", "Se crea la actividad por primera vez"); // Debug line
+            routesView = findViewById(R.id.listaRutas); // Inicializar ListView de rutas
+
+            // Volver a la actividad anterior
             ImageView backArrow = findViewById(R.id.backArrow);
             backArrow.setOnClickListener(v -> finish());
 
-            Log.d("AvailableRoutesActivity", "Se crea la actividad por primera vez"); // Debug line
-            Call<List<AvailableRoute>> call = service.getAvailableRoutes("3f606fe38e646890030881ef");
-            routesView = findViewById(R.id.listaRutas);
-            call.enqueue(new Callback<List<AvailableRoute>>() {
-                @Override
-                public void onResponse(Call<List<AvailableRoute>> call, Response<List<AvailableRoute>> response) {
-                    if (response.isSuccessful()) {
-                        List<AvailableRoute> availableRoutes = response.body();
-                        routesDisplayList = availableRoutes
-                                .stream()
-                                .map(AvailableRoute::getAddress)
-                                .collect(Collectors.toList());
-                        adapter = new ArrayAdapter<>(AvailableRoutesActivity.this,
-                                android.R.layout.simple_list_item_1,
-                                routesDisplayList);
-                        routesView.setAdapter(adapter);
-                    } else {
-                        Log.e("API", "Error en respuesta: " + response.code());
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<List<AvailableRoute>> call, Throwable t) {
-                    Log.e("API", "Error en la conexión", t);
-                }
-            });
-            /*
-
-            routesView = findViewById(R.id.listaRutas); // Inicializar rutas
-
-            if (routeRepository != null) {
-                List<AvailableRoute> availableRoutes = routeRepository.getAllAvailableRoutes();
-                routesDisplayList = availableRoutes
-                        .stream()
-                        .map(route -> route.getId() + " - " + route.getAddress())
-                        .collect(Collectors.toList());
-
-                adapter = new ArrayAdapter<>(this,
-                        android.R.layout.simple_list_item_1,
-                        routesDisplayList);
-                routesView.setAdapter(adapter);
-            } else {
-                Log.e("AvailableRoutesActivity", "RouteRepository is null");
-            }
-
-             */
+            call = service.getAvailableRoutes("3f606fe38e646890030881ef"); // TODO: CAMBIAR A DINAMICO
+            call.enqueue(new AvailableRoutesCallback(this, routesView));
         }
     }
 
