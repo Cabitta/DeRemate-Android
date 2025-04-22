@@ -19,25 +19,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.deremate_android.R;
-import com.example.deremate_android.data.service.LoginService;
-import com.example.deremate_android.data.model.LoginRequest;
-import com.example.deremate_android.data.model.LoginResponse;
-
-import retrofit2.Call;
-import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends AppCompatActivity {
     EditText emailInput, passwordInput;
@@ -103,7 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         forgotPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(LoginActivity.this, PasswordRecoveryActivity.class);
+                Intent intent3 = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
                 startActivity(intent3);
             }
         });

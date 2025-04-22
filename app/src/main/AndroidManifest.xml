@@ -42,7 +42,7 @@
 
         <!-- Actividad para recuperar contraseña -->
         <activity
-            android:name=".ui.activities.PasswordRecoveryActivity"
+            android:name=".ui.activities.ForgotPasswordActivity"
             android:exported="false"
             android:label="Recuperar contraseña">
         </activity>
@@ -58,6 +58,12 @@
             android:exported="false"
             android:label="Entrada de usuario a la app">
         </activity>
+        <activity
+            android:name=".ui.activities.ResetPasswordActivity"
+            android:exported="false"
+            android:label="Resetear contraseña">
+        </activity>
+
         <activity android:name=".ui.activities.DeliveryHistoryActivity" />
         <activity
             android:name=".ui.activities.AvailableRoutesActivity"
