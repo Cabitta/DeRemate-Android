@@ -40,7 +40,7 @@ public class AvailableRoutesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "⭐ onCreate");
-        setContentView(R.layout.available_routes);
+        setContentView(R.layout.activity_available_routes);
 
         if (savedInstanceState == null) {
             Log.d("AvailableRoutesActivity", "Se crea la actividad por primera vez"); // Debug line
