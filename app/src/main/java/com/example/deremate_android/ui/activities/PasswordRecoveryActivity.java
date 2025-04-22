@@ -3,24 +3,43 @@ package com.example.deremate_android.ui.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.deremate_android.R;
+import com.example.deremate_android.data.api.ApiClient;
+import com.example.deremate_android.data.service.ForgotPasswordService;
+import com.example.deremate_android.data.model.ForgotPasswordRequest;
+import com.example.deremate_android.data.model.ForgotPasswordResponse;
+import com.example.deremate_android.data.model.LoginRequest;
+import com.example.deremate_android.data.model.LoginResponse;
+import com.example.deremate_android.data.model.RecoveryPasswordRequest;
+import com.example.deremate_android.data.service.ForgotPasswordService;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PasswordRecoveryActivity extends AppCompatActivity{
     EditText emailInput;
     Button sendEmailButton;
-
     Button returnToLoginButton;
-
+    private ForgotPasswordService forgotPasswordService;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passwordrecovery); // Cargamos el diseño XML del Login
+        setContentView(R.layout.activity_passwordrecovery);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://10.0.2.2:3000/") // Para emulador de Android Studio
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        forgotPasswordService = retrofit.create(ForgotPasswordService.class);
+        // Cargamos el diseño XML del Login
         // Conectamos nuestras variables con los elementos del XML mediante sus IDs
         emailInput = findViewById(R.id.emailInput);
         sendEmailButton = findViewById(R.id.sendEmailButton);
@@ -36,25 +55,46 @@ public class PasswordRecoveryActivity extends AppCompatActivity{
                     emailInput.setError("Por favor ingresa un email");
                     return; // Detenemos la ejecución si hay error
                 }
+
+                ForgotPasswordRequest recoveryPasswordRequest = new ForgotPasswordRequest(email);
+                Call<ForgotPasswordResponse> call = forgotPasswordService.forgotpassword(recoveryPasswordRequest);
+                call.enqueue(new Callback<ForgotPasswordResponse>() {
+                    @Override
+                    public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
+                        if (response.isSuccessful()){
+                            Toast.makeText(PasswordRecoveryActivity.this, "Email enviado", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(PasswordRecoveryActivity.this, SendNotificationActivity.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            Toast.makeText(PasswordRecoveryActivity.this, "El email no es correcto", Toast.LENGTH_SHORT).show();
+                            emailInput.setText("");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
+                        Toast.makeText(PasswordRecoveryActivity.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
                 // Validamos las credenciales (en un proyecto real, esto se haría contra una base de datos)
-                if (email.equals("rodrigo_moens@hotmail.com")){
-                    Intent intent = new Intent(PasswordRecoveryActivity.this, SendNotificationActivity.class);
-                    startActivity(intent);
-                }
-                else {
-                    // Falla - mostramos mensaje de error
-                    Toast.makeText(PasswordRecoveryActivity.this, "Email Incorrecto", Toast.LENGTH_SHORT).show();
-                    // MEJORA: Limpiamos el campo de contraseña por seguridad
-                    emailInput.setText("");
-                }
+                //if (email.equals("rodrigo_moens@hotmail.com")){
+                //  Intent intent = new Intent(PasswordRecoveryActivity.this, SendNotificationActivity.class);
+                //startActivity(intent);
+                //}
+                //else {
+                // Falla - mostramos mensaje de error
+                //  Toast.makeText(PasswordRecoveryActivity.this, "Email Incorrecto", Toast.LENGTH_SHORT).show();
+                // MEJORA: Limpiamos el campo de contraseña por seguridad
+                //emailInput.setText("");
+                //}
             }
         });
         returnToLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(PasswordRecoveryActivity.this, LoginActivity.class);
-                startActivity(intent);
-                finish(); // This will close the current activity
+                Intent intent3 = new Intent(PasswordRecoveryActivity.this, LoginActivity.class);
+                startActivity(intent3);// This will close the current activity
             }
         });
     }
