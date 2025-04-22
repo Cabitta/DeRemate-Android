@@ -10,14 +10,9 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.deremate_android.R;
-import com.example.deremate_android.data.api.ApiClient;
 import com.example.deremate_android.data.service.ForgotPasswordService;
 import com.example.deremate_android.data.model.ForgotPasswordRequest;
 import com.example.deremate_android.data.model.ForgotPasswordResponse;
-import com.example.deremate_android.data.model.LoginRequest;
-import com.example.deremate_android.data.model.LoginResponse;
-import com.example.deremate_android.data.model.RecoveryPasswordRequest;
-import com.example.deremate_android.data.service.ForgotPasswordService;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class PasswordRecoveryActivity extends AppCompatActivity{
+public class ForgotPasswordActivity extends AppCompatActivity{
     EditText emailInput;
     Button sendEmailButton;
     Button returnToLoginButton;
@@ -33,7 +28,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_passwordrecovery);
+        setContentView(R.layout.activity_forgotpassword);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://10.0.2.2:3000/") // Para emulador de Android Studio
                 .addConverterFactory(GsonConverterFactory.create())
@@ -55,26 +50,25 @@ public class PasswordRecoveryActivity extends AppCompatActivity{
                     emailInput.setError("Por favor ingresa un email");
                     return; // Detenemos la ejecución si hay error
                 }
-
-                ForgotPasswordRequest recoveryPasswordRequest = new ForgotPasswordRequest(email);
-                Call<ForgotPasswordResponse> call = forgotPasswordService.forgotpassword(recoveryPasswordRequest);
+                ForgotPasswordRequest forgotPasswordRequest = new ForgotPasswordRequest(email);
+                Call<ForgotPasswordResponse> call = forgotPasswordService.forgotpassword(forgotPasswordRequest);
                 call.enqueue(new Callback<ForgotPasswordResponse>() {
                     @Override
                     public void onResponse(Call<ForgotPasswordResponse> call, Response<ForgotPasswordResponse> response) {
                         if (response.isSuccessful()){
-                            Toast.makeText(PasswordRecoveryActivity.this, "Email enviado", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(PasswordRecoveryActivity.this, SendNotificationActivity.class);
+                            Toast.makeText(ForgotPasswordActivity.this, "Email enviado", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(ForgotPasswordActivity.this, SendNotificationActivity.class);
                             startActivity(intent);
                         }
                         else{
-                            Toast.makeText(PasswordRecoveryActivity.this, "El email no es correcto", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ForgotPasswordActivity.this, "El email no es correcto", Toast.LENGTH_SHORT).show();
                             emailInput.setText("");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<ForgotPasswordResponse> call, Throwable t) {
-                        Toast.makeText(PasswordRecoveryActivity.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this, "Error de conexión: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
                 // Validamos las credenciales (en un proyecto real, esto se haría contra una base de datos)
@@ -93,7 +87,7 @@ public class PasswordRecoveryActivity extends AppCompatActivity{
         returnToLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent3 = new Intent(PasswordRecoveryActivity.this, LoginActivity.class);
+                Intent intent3 = new Intent(ForgotPasswordActivity.this, LoginActivity.class);
                 startActivity(intent3);// This will close the current activity
             }
         });
