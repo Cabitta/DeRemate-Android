@@ -70,7 +70,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.Delive
 
         public void bind(final DeliveryHistory delivery, final OnItemClickListener listener) {
             nameTextView.setText(delivery.getClient_name() + " " + delivery.getClient_lastname());
-            timeTextView.setText(delivery.getDelivery_time());
+            timeTextView.setText("Tiempo de Entrega: " + delivery.getDelivery_time());
             dateTextView.setText(delivery.getEnd_date_time().split("T")[0]);
             itemView.setOnClickListener(v -> listener.onItemClick(delivery));
         }
