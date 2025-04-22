@@ -1,5 +1,7 @@
 package com.example.deremate_android.ui.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -50,7 +52,11 @@ public class AvailableRoutesActivity extends AppCompatActivity {
             ImageView backArrow = findViewById(R.id.backArrow);
             backArrow.setOnClickListener(v -> finish());
 
-            call = service.getAvailableRoutes("3f606fe38e646890030881ef"); // TODO: CAMBIAR A DINAMICO
+            SharedPreferences prefs = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+            String deliveryId = prefs.getString("delivery_id", null);
+
+
+            call = service.getAvailableRoutes(deliveryId);
             call.enqueue(new AvailableRoutesCallback(this, recyclerView));
         }
         else {
