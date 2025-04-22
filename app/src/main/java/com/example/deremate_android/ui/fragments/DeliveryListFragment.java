@@ -3,6 +3,8 @@ package com.example.deremate_android.ui.fragments;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,18 +36,24 @@ public class DeliveryListFragment extends Fragment {
     private List<DeliveryHistory> deliveryList;
     private DeliveryAdapter deliveryAdapter;
 
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_delivery_list, container, false);
         recyclerView = view.findViewById(R.id.recycler_view);
 
+        SharedPreferences prefs = requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        String deliveryId = prefs.getString("delivery_id", null);
+
+
         ImageView backArrow = view.findViewById(R.id.backArrow);
         backArrow.setOnClickListener(v -> requireActivity().onBackPressed());
 
         deliveryAdapter = new DeliveryAdapter(List.of(), delivery -> {
-            Fragment detailFragment = new DeliveryDetailFragment();
+            Fragment detailFragment = DeliveryDetailFragment.newInstance(
+                    deliveryId,
+                    delivery.getRouteId()
+            );
             requireActivity().getSupportFragmentManager()
                     .beginTransaction()
                     .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
@@ -58,7 +66,6 @@ public class DeliveryListFragment extends Fragment {
         recyclerView.setAdapter(deliveryAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        String deliveryId = "3f606fe38e646890030881ef"; // TODO: CAMBIAR A DINAMICO
         DeliveryHistoryService service = ApiClient.getClient().create(DeliveryHistoryService.class);
         Call<List<DeliveryHistory>> call = service.getDeliveryHistory(deliveryId);
 

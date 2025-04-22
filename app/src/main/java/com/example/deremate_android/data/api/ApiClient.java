@@ -1,6 +1,7 @@
 package com.example.deremate_android.data.api;
 
 import com.example.deremate_android.data.service.RegisterService;
+import com.example.deremate_android.data.service.VerifyAccountService;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -22,4 +23,8 @@ public class ApiClient {
     public static RegisterService getRegisterService() {
         return getClient().create(RegisterService.class);
     }
+    public static VerifyAccountService getVerifyAccountService() {
+        return getClient().create(VerifyAccountService.class);
+    }
+
 }

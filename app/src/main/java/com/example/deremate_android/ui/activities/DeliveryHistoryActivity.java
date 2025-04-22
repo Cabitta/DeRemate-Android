@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.deremate_android.R;
 import com.example.deremate_android.ui.fragments.DeliveryListFragment;
 
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
 public class DeliveryHistoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {

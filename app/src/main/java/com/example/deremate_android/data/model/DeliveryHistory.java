@@ -3,6 +3,9 @@ package com.example.deremate_android.data.model;
 import com.google.gson.annotations.SerializedName;
 
 public class DeliveryHistory {
+    @SerializedName("id")
+    private String routeId;
+
     @SerializedName("state")
     private String state;
 
@@ -17,6 +20,14 @@ public class DeliveryHistory {
 
     @SerializedName("delivery_time")
     private String delivery_time;
+
+    public String getRouteId() {
+        return routeId;
+    }
+
+    public void setRouteId(String routeId) {
+        this.routeId = routeId;
+    }
 
     public String getState() {
         return state;

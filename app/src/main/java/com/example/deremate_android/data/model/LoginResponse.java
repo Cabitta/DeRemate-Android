@@ -2,7 +2,7 @@ package com.example.deremate_android.data.model;
 
 public class LoginResponse {
     private String token;
-    private String userId;
+    private String deliveryId;
     private String message;
 
     public String getToken() {
@@ -10,7 +10,7 @@ public class LoginResponse {
     }
 
     public String getUserId() {
-        return userId;
+        return deliveryId;
     }
 
     public String getMessage() {

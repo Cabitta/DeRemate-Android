@@ -1,5 +1,6 @@
 package com.example.deremate_android.ui.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -127,8 +128,23 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    Toast.makeText(RegisterActivity.this, "Registro exitoso", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+
+                    // Redirigir a VerificationActivity
+                    Intent intent = new Intent(RegisterActivity.this, VerificationActivity.class);
+                    intent.putExtra("email", email);
+                    startActivity(intent);
                     finish();
+                } else {
+                    try {
+                        String errorString = response.errorBody().string();
+                        Log.e(TAG, "❌ Error body: " + errorString);
+                        JSONObject errorBody = new JSONObject(errorString);
+                        String errorMessage = errorBody.getString("message");
+                        Toast.makeText(RegisterActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(RegisterActivity.this, "Error en el registro", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -139,7 +155,6 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
         Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
-        finish();
     }
     
     private boolean isEmailValid(String email) {
