@@ -1,9 +1,6 @@
 package com.example.deremate_android.ui.fragments;
 
-import static android.content.ContentValues.TAG;
-
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,21 +26,15 @@ public class DeliveryDetailFragment extends Fragment {
     @Inject
     DeliveryDetailService deliveryDetailService;
 
-    // Views
     private TextView clientNameText, addressText, statusText;
     private TextView qrCodeText, packageLocationText;
     private TextView datesText, deliveryTimeText;
     private ImageView backArrow;
 
-    // Datos necesarios para la llamada API
-    private String deliveryId;
-    private String agentId;
-    private String routeId;
-
-    public static DeliveryDetailFragment newInstance(String routeId, String deliveryId) {
+    public static DeliveryDetailFragment newInstance(String agentId, String deliveryId) {
         DeliveryDetailFragment fragment = new DeliveryDetailFragment();
         Bundle args = new Bundle();
-        args.putString("routeId", routeId);
+        args.putString("agentId", agentId);
         args.putString("deliveryId", deliveryId);
         fragment.setArguments(args);
         return fragment;
@@ -52,28 +43,19 @@ public class DeliveryDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_delivery_detail, container, false);
-        if (getArguments() != null) {
-            routeId = getArguments().getString("routeId");
-            deliveryId = getArguments().getString("deliveryId");
-        }
-
-        agentId = "123";
+        initViews(view);
 
         Bundle args = getArguments();
         if (args != null) {
-            deliveryId = args.getString("deliveryId", deliveryId);
-            agentId = args.getString("agentId", agentId);
+            String agentId = args.getString("agentId");
+            String deliveryId = args.getString("deliveryId");
+            loadDeliveryDetail(agentId, deliveryId);
         }
-
-        initViews(view);
-        loadDeliveryDetail();
 
         return view;
     }
 
-
     private void initViews(View view) {
-        // Inicializar vistas
         clientNameText = view.findViewById(R.id.clientName);
         addressText = view.findViewById(R.id.address);
         statusText = view.findViewById(R.id.status);
@@ -81,47 +63,43 @@ public class DeliveryDetailFragment extends Fragment {
         packageLocationText = view.findViewById(R.id.packageLocation);
         datesText = view.findViewById(R.id.dates);
         deliveryTimeText = view.findViewById(R.id.deliveryTime);
-
-        // Configurar flecha atrás
         backArrow = view.findViewById(R.id.backArrow);
         backArrow.setOnClickListener(v -> requireActivity().onBackPressed());
     }
 
-    private void loadDeliveryDetail() {
-        // Usar directamente el servicio inyectado
+    private void loadDeliveryDetail(String agentId, String deliveryId) {
         deliveryDetailService.getDeliveryDetail(agentId, deliveryId).enqueue(new Callback<DeliveryDetailItem>() {
             @Override
             public void onResponse(Call<DeliveryDetailItem> call, Response<DeliveryDetailItem> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     updateUI(response.body());
+                } else {
+                    Toast.makeText(getContext(), "Error: No se encontraron los detalles", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<DeliveryDetailItem> call, Throwable t) {
-                Toast.makeText(getContext(), "Error al cargar los detalles", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error de conexión", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void updateUI(DeliveryDetailItem detail) {
-        // Actualizar vistas con los datos
         clientNameText.setText(detail.getClientFullName());
         addressText.setText(detail.getAddress());
         statusText.setText("Estado: " + detail.getStatus());
         qrCodeText.setText("QR: " + detail.getQrCode());
 
-        // Mostrar ubicación del paquete
-        String location = String.format("Ubicación: Sector %s, Estante %s, Columna %s",
-                detail.getPackageLocation().getSector(),
-                detail.getPackageLocation().getShelf(),
-                detail.getPackageLocation().getColumn());
-        packageLocationText.setText(location);
+        DeliveryDetailItem.PackageLocation location = detail.getPackageLocation();
+        String locationText = String.format("Ubicación: Sector %s, Estante %s, Columna %s",
+                location.getSector(), location.getShelf(), location.getColumn());
+        packageLocationText.setText(locationText);
 
-        // Mostrar fechas
-        datesText.setText(String.format("Inicio: %s\nFin: %s",
-                detail.getInitDateTime(),
-                detail.getEndDateTime()));
+        String dates = String.format("Inicio: %s\nFin: %s",
+                detail.getInitDateTime().split("T")[0],
+                detail.getEndDateTime().split("T")[0]);
+        datesText.setText(dates);
 
         deliveryTimeText.setText("Tiempo de entrega: " + detail.getDeliveryTime());
     }
