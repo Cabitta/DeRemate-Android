@@ -63,6 +63,12 @@
             android:name=".ui.activities.AvailableRoutesActivity"
             android:exported="true"
             android:theme="@style/Theme.DeRemateAndroid"/>
+
+        <activity
+            android:name=".ui.activities.VerificationActivity"
+            android:exported="false"
+            android:label="Verificación de cuenta">
+        </activity>
     </application>
 
 </manifest>

@@ -153,8 +153,6 @@ public class RegisterActivity extends AppCompatActivity {
                 Toast.makeText(RegisterActivity.this, "Error en el registro", Toast.LENGTH_SHORT).show();
             }
         });
-
-        Toast.makeText(this, "Registro exitoso", Toast.LENGTH_SHORT).show();
     }
     
     private boolean isEmailValid(String email) {
