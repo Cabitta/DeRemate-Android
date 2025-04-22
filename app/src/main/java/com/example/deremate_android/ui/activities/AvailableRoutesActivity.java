@@ -2,13 +2,12 @@ package com.example.deremate_android.ui.activities;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.deremate_android.R;
 import com.example.deremate_android.data.api.ApiClient;
@@ -33,9 +32,8 @@ public class AvailableRoutesActivity extends AppCompatActivity {
 
     @Inject
     RouteRepository routeRepository;
-
+    private RecyclerView recyclerView;
     private ListView routesView;
-
     private Call<List<AvailableRoute>> call;
 
     @Override
@@ -46,15 +44,19 @@ public class AvailableRoutesActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             Log.d("AvailableRoutesActivity", "Se crea la actividad por primera vez"); // Debug line
-            routesView = findViewById(R.id.listaRutas); // Inicializar ListView de rutas
+            recyclerView = findViewById(R.id.recycler_view); // Inicializar RecyclerView de rutas
 
             // Volver a la actividad anterior
             ImageView backArrow = findViewById(R.id.backArrow);
             backArrow.setOnClickListener(v -> finish());
 
             call = service.getAvailableRoutes("3f606fe38e646890030881ef"); // TODO: CAMBIAR A DINAMICO
-            call.enqueue(new AvailableRoutesCallback(this, routesView));
+            call.enqueue(new AvailableRoutesCallback(this, recyclerView));
         }
+        else {
+            Log.d("AvailableRoutesActivity", "Se recupera la actividad desde el estado guardado"); // Debug line
+        }
+
     }
 
     @Override
