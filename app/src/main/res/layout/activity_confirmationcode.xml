@@ -4,101 +4,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PasswordRecoveryActivity"
+    tools:context=".ui.activities.ResetPasswordActivity"
     android:background="@color/white">
-
-    //
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="318dp"
-        android:layout_height="174dp"
+        android:layout_width="296dp"
+        android:layout_height="194dp"
         android:layout_marginTop="48dp"
         android:layout_marginBottom="24dp"
         android:contentDescription="De Remate Logo"
         android:src="@drawable/logo_placeholder"
-        app:layout_constraintBottom_toTopOf="@+id/recoveryTextView"
+        app:layout_constraintBottom_toTopOf="@+id/resetPasswordTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.827"
+        app:layout_constraintHorizontal_bias="0.721"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
     <TextView
-        android:id="@+id/recoveryTextView"
+        android:id="@+id/resetPasswordTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Recuperación de Contraseña"
+        android:text="Restablecer Contraseña"
         android:textSize="24sp"
         android:textStyle="bold"
         android:textColor="@color/black"
         app:layout_constraintTop_toBottomOf="@+id/logoImageView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/instructionsTextView"
-        android:layout_marginBottom="16dp" />
-
-    <TextView
-        android:id="@+id/instructionsTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Ingresa tu dirección de correo electrónico y te enviaremos un enlace para restablecer tu contraseña."
-        android:textSize="16sp"
-        android:textAlignment="center"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintTop_toBottomOf="@+id/recoveryTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/emailInputLayout"
+        app:layout_constraintBottom_toTopOf="@+id/codeInputLayout"
         android:layout_marginBottom="32dp" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/emailInputLayout"
+        android:id="@+id/codeInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:hint="Email"
+        android:hint="Código de verificación"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@+id/instructionsTextView"
+        app:layout_constraintTop_toBottomOf="@+id/resetPasswordTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/sendEmailButton"
+        app:layout_constraintBottom_toTopOf="@+id/newPasswordInputLayout"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/codeInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/newPasswordInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Nueva contraseña"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:passwordToggleEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/codeInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/confirmPasswordInputLayout"
+        android:layout_marginBottom="16dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/newPasswordInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/confirmPasswordInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="Confirmar contraseña"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:passwordToggleEnabled="true"
+        app:layout_constraintTop_toBottomOf="@+id/newPasswordInputLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/sendInformationButton"
         android:layout_marginBottom="32dp">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/emailInput"
+            android:id="@+id/confirmPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/sendEmailButton"
+        android:id="@+id/sendInformationButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Enviar Correo de Recuperación"
+        android:text="Restablecer Contraseña"
         android:textAllCaps="false"
         android:paddingVertical="12dp"
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:backgroundTint="@color/design_default_color_primary"
-        app:layout_constraintTop_toBottomOf="@+id/emailInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/confirmPasswordInputLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/returnToLoginButton"
+        app:layout_constraintBottom_toTopOf="@+id/sendNotificationButton"
         android:layout_marginBottom="16dp" />
 
     <Button
-        android:id="@+id/returnToLoginButton"
+        android:id="@+id/sendNotificationButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver a Iniciar Sesión"
+        android:text="Volver a la pestaña anterior"
         android:textAllCaps="false"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        app:layout_constraintTop_toBottomOf="@+id/sendEmailButton"
+        app:layout_constraintTop_toBottomOf="@+id/sendInformationButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

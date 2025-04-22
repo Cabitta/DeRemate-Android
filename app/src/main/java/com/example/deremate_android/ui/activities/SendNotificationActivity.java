@@ -24,7 +24,7 @@ public class SendNotificationActivity extends AppCompatActivity {
         returnToLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SendNotificationActivity.this, LoginActivity.class);
+                Intent intent = new Intent(SendNotificationActivity.this, ResetPasswordActivity.class);
                 // Clear the activity stack so the user can't go back to the password recovery screens
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
