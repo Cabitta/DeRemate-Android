@@ -5,11 +5,11 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 
+
 public interface DeliveryDetailService {
     // Endpoint para obtener detalles de una entrega específica
-    @GET("deliveries/history/{agentId}/{deliveryId}")
-    Call<DeliveryDetailItem> getDeliveryDetail(
-            @Path("agentId") String agentId,
-            @Path("deliveryId") String deliveryId
-    );
+
+    @GET("delivery-details/{routeId}")
+    Call<DeliveryDetailItem> getDeliveryDetail(@Path("routeId") String routeId);
 }
+

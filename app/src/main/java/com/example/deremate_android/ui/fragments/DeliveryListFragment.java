@@ -51,7 +51,6 @@ public class DeliveryListFragment extends Fragment {
 
         deliveryAdapter = new DeliveryAdapter(List.of(), delivery -> {
             Fragment detailFragment = DeliveryDetailFragment.newInstance(
-                    deliveryId,
                     delivery.getRouteId()
             );
             requireActivity().getSupportFragmentManager()
